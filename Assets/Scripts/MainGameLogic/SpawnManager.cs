@@ -59,7 +59,7 @@ public class SpawnManager : MonoBehaviour
      * Spawns just a wolf iff there are no other wolves and at least 2 sheep
      */
     private readonly Func<int, int, double, double> _wolfSpawnThreshold =
-        (int wolves, int sheep, double time) => (wolves == 0 && sheep >= 2) ? 0 : 101;
+        (int wolves, int sheep, double time) => (wolves == 0 && sheep >= 2) ? 100 : 0;
     
     /**
       * Function that returns the probability at any given time for a sheep to escape the pen.
@@ -69,16 +69,18 @@ public class SpawnManager : MonoBehaviour
         {
             if (sheep_out >= maxOutside)
             {
-                return 101;
+                return 0;
             }
 
-            /* We want an exponential function, f(t) = 3^t. To calculate the probability of a sheep escaping, we have
-             to integrate the function: (3^t)/log(3)
-             Then, we have to convert it into a value between 0 and 100, being '100' anything bigger than
-             'maxOutside' */
-            double prob = 100 - (Math.Pow (5.0, time) / Math.Log (5.0));
 
-            return prob > 101? 101 : prob;
+            /* We want the amount of sheep to follow an exponential growth:
+            min(b^t, maxOutside) */
+            double expectedOutside = Math.Min (maxOutside, Math.Pow (1.2, time));
+
+            /* We limit the probability to an 80%, so a sheep doesn't always come out the moment she's inside */
+            double prob = Math.Min ((expectedOutside - sheep_out) / expectedOutside, 0.8) * 100;
+
+            return prob;
         }
     ;
     
@@ -98,7 +100,7 @@ public class SpawnManager : MonoBehaviour
          {
              int idx = _rand.Next (foodPrefabs.Length);
              Food foodItem = foodPrefabs[idx];
-             Instantiate (foodItem, point.transform);
+             Instantiate (foodItem, point.transform.position, Quaternion.identity);
          }
 
          StartCoroutine (calcSpawmns ());
@@ -131,7 +133,7 @@ public class SpawnManager : MonoBehaviour
               threshold = _sheepEscapeThreshold (_commBus.sheep_out, _commBus.sheep_in, maxSheepOutside, _sheepTime);
           }
 
-          if (value < threshold)
+          if (value >= threshold)
           {
               return;
           }
