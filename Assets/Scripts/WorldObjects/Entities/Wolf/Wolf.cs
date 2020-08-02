@@ -13,7 +13,7 @@ public class Wolf : Entity
     }
 
     /**
-     * Removes this sheep from the game
+     * Removes this wolf from the game
      */
     public void Die ()
     {
@@ -25,7 +25,7 @@ public class Wolf : Entity
     public override void PlayerInteraction()
     {
         throw new System.NotImplementedException();
-        base.PlayerInteraction();
+//        base.PlayerInteraction();
     }
 
     public override bool Interact (WorldObject other_object)

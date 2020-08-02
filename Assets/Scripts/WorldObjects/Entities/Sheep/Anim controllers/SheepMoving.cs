@@ -67,7 +67,6 @@ public class SheepMoving : StateMachineBehaviour
         }
 
         Collider[] colliders = Physics.OverlapSphere(sheep.transform.position, sheep_vars.sheep_food_range,sheep_vars.food_mask);
-//        Debug.Log("SheepMoving.OnStateUpdate: Colliders.length =" + colliders.Length);
 
         if(colliders.Length != 0)
         {

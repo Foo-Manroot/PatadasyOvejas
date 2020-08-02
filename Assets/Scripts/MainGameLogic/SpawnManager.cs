@@ -146,14 +146,14 @@ public class SpawnManager : MonoBehaviour
           /* The entity is spawned at one of the predefined points */
           if (entity.GetType () == typeof (Sheep))
           {
-              Instantiate (wolfPrefab, point.transform.position, Quaternion.identity);
+              Instantiate (sheepPrefab, point.transform.position, Quaternion.identity);
               _wolfTime = 0;
               /* Notifies the change */
               _commBus.sheepEscaped ();
 
           } else if (entity.GetType () == typeof (Wolf))
           {
-              Instantiate (sheepPrefab, point.transform.position, Quaternion.identity);
+              Instantiate (wolfPrefab, point.transform.position, Quaternion.identity);
               _sheepTime = 0;
               /* Notifies the change */
               _commBus.wolfAdded ();

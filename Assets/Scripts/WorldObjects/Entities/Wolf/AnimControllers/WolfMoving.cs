@@ -86,7 +86,7 @@ public class WolfMoving : StateMachineBehaviour
         {
             Animator other_anim = c.GetComponent<Animator>();
             /* The sheep manages its own death */
-            other_anim.SetTrigger ("Dead");
+            other_anim.SetBool ("Dead", true);
         }
     }
 

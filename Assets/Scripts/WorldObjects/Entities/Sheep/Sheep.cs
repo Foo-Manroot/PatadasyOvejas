@@ -29,7 +29,7 @@ public class Sheep : Entity
     public void SwapToNormal()
     {
         /* TODO: Añadir animación */
-        print("Swaping to normal");
+//        print("Swaping to normal");
     }
     
     /**
@@ -85,13 +85,13 @@ public class Sheep : Entity
     public override void PlayerInteraction()
     {
         throw new System.NotImplementedException();
-        base.PlayerInteraction();
+//        base.PlayerInteraction();
     }
 
     public override bool Interact(WorldObject other_object)
     {
         throw new System.NotImplementedException();
-        return base.Interact(other_object);
+//        return base.Interact(other_object);
     }
 
 

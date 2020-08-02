@@ -31,9 +31,9 @@ public class DeleteFallenObjects : MonoBehaviour
                 _commbus.wolfRemoved();
                 break;
             
-//            default:
-//                Destroy (other.gameObject);
-//                break;
+            default:
+                Destroy (other.gameObject);
+                break;
         }
     }
 
